@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "nodemon --experimental-json-modules app.js",
+    "start": "nodemon --experimental-json-modules server.js",
     "client": "npm start --prefix react-app",
     "client-install": "npm install --prefix react-app",
     "dev": "concurrently \"yarn start\" \"yarn run client\""
