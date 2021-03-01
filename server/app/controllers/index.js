@@ -1,4 +1,5 @@
 import BookData from '../models/index.js'
+import mongoose from 'mongoose'
 
 export const getData = async(req, res) => {
 	try{
@@ -55,14 +56,14 @@ export const getDataByPenulis = async(req, res) => {
 export const createBooks = async(req, res) => {
 	const bookdata = req.body
 	try{
-		let books = new BookData(bookdata)
-		books = await books.save()
+		const books = new BookData(bookdata)
+		await books.save()
 		res.status(201).json({
 			data: books
 		})
 	}catch(error){
-		res.status(404).json({
-			message: 'error store books'
+		res.status(409).json({
+			message: error.message
 		})
 	}
 }
@@ -71,21 +72,21 @@ export const updatedBooks = async(req, res) => {
 	const id = req.params.id
 	const {judul, penulis, genre, penerbit} = req.body
 
-	if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Buku dengan id : ${id}, data belum tersedia`)
+	if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Buku dengan id : ${id}, data tidak ditemukan`)
 
 	const books = {judul, penulis, genre, penerbit, id}
 
-	await BookData.findAndModify(id, books, {new: true})
+	await BookData.findByIdAndUpdate(id, books, {new: true})
+
 	res.status(200).json(books)
 }
 
 export const deletedBooks = async(req, res) => {
 	const id = req.params.id
-	if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Data Buku dengan id :${id} belum tersedia`)
+	if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Buku dengan id : ${id}, data tidak ditemukan`)
 
-	await BookData.findIdAndRemove(id)
-
+	await BookData.findByIdAndRemove(id)
 	res.status(200).json({
-		message: `Data buku dengan id ${id}, berhasil dihapus`
+		message: "Deleted Bookdata successfully"
 	})
 }
