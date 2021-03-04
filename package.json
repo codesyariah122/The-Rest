@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon --experimental-json-modules server.js",
-    "client": "npm start --prefix react-app",
-    "client-install": "npm install --prefix react-app",
+    "client": "npm start --prefix react-crud",
+    "client-install": "npm install --prefix react-crud",
     "dev": "concurrently \"yarn start\" \"yarn run client\""
   },
   "dependencies": {
