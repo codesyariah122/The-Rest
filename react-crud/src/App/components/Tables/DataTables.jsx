@@ -24,7 +24,7 @@ const DataTables = props => {
 							<td>{book.judul}</td>
 							<td colSpan={4}>
 
-								<button onClick={ () => props.DetailData(book.id)} className="buton muted-button">Detail</button>
+								<button onClick={ () => props.detailBook(book)} className="buton muted-button">Detail</button>
 								<button onClick={() => props.editRow(book)} className="button muted-button">Edit</button>
 
 								<button className="button muted-button">Delete</button>

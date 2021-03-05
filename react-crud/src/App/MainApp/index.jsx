@@ -29,13 +29,6 @@ const MainApp = (props) => {
 
 	}, [books])
 
-	const detailsBook = id => {
-		console.log(id)
-		// detailData(id)
-		// .then( res => {
-		// 	console.log(res)
-		// })
-	}
 
 
 	// CRUD operation
@@ -65,6 +58,17 @@ const MainApp = (props) => {
 		})
 	}
 
+	const detailBook = book => {
+		setDetails(true)
+		setCurrentBook({
+			id: book.id, 
+			judul: book.judul,
+			penulis: book.penulis,
+			genre: book.genre,
+			penerbit: book.penerbit
+		})
+	}
+
 	return (
 		<div className="container">
 			<h1>{props.title}</h1>
@@ -83,27 +87,27 @@ const MainApp = (props) => {
 				) : (
 					<Fragment>
 						<h2>Add Books</h2>
-						<AddForm/>
+						<AddForm />
 					</Fragment>
 				)}
 				{ details ? (
 					<Fragment>
 						<h2>Detail Data</h2>
-						<DetailData details={details}/>
+						<DetailData details={details} setDetails={setDetails} currentBook={currentBook}/>
 					</Fragment>
 				) : (
 
 					<Fragment>
-						<h2>No Data</h2>
+						<h2></h2>
 					</Fragment>
 
 				)}
 				</div>
 
 				<div className="five columns">
-					<h2>View User</h2>
+					<h2>Book Table</h2>
 
-					<DataTables books={books} DetailData={DetailData} editRow={editRow} deleteBook={deleteBook}/>
+					<DataTables books={books} detailBook={detailBook} editRow={editRow} deleteBook={deleteBook}/>
 				</div>
 			</div>
 		</div>
