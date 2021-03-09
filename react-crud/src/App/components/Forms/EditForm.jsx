@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 
 const EditForm = props => {
-
-	const [book, setBook] = useState(props.currentBook)
-
 	useEffect(() => {
-		// console.log(book)
 		setBook(props.currentBook)
 	}, [props])
 
-	const handleInputChange = event => {
-		const {name, value} = event.target
+	const [book, setBook] = useState(props.currentBook)
+
+	const handleChange = e => {
+		const {name, value} = e.target
 		setBook({...book, [name]: value})
-		// console.log(book)
 	}
 
-	const handleSubmit = event => {
-		event.preventDefault()
-		props.updateBook(book.id, book)
+	const handleSubmit = e => {
+		e.preventDefault()
+		if(book.judul && book.penulis && book.genre && book.penerbit) props.updateBook(book)
 	}
-
 	return (
-		<form onSubmit={handleSubmit}>
-			<label htmlFor="judul">Judul</label>
-			<input type="text" name="judul" id="judul" value={book.judul} onChange={handleInputChange}/>
+		<form>
+		  <div className="form-group">
+		    <label for="judul">Judul</label>
+		    <input type="text" className="form-control" id="judul" value={book.judul} name="judul" onChange={handleChange}/>
+		  </div>
 
-			<label htmlFor="penulis">Penulis</label>
-			<input type="text" name="penulis" id="penulis" value={book.penulis} onChange={handleInputChange}/>
+		  <div className="form-group">
+		    <label for="penulis">Penulis</label>
+		    <input type="text" className="form-control" id="penulis" value={book.penulis} name="penulis" onChange={handleChange}/>
+		  </div>
 
-			<label htmlFor="genre">Genre</label>
-			<input type="text" name="genre" id="genre" value={book.genre} onChange={handleInputChange}/>
+		  <div className="form-group">
+		    <label for="genre">Genre</label>
+		    <input type="text" className="form-control" id="genre" value={book.genre} name="genre" onChange={handleChange}/>
+		  </div>
 
-			<label htmlFor="penerbit">Penerbit</label>
-			<input type="text" name="penerbit" id="penerbit" value={book.penerbit} onChange={handleInputChange}/>
-			<button onClick={() => props.setEditing(false)} className="button muted-button">Edit Book</button>
+		  <div className="form-group">
+		    <label for="penerbit">Penerbit</label>
+		    <input type="text" className="form-control" id="penerbit" value={book.penerbit} name="penerbit" onChange={handleChange}/>
+		  </div>
+		
+		  <button type="submit" className="btn btn-primary" onClick={() => props.setEditing(false)}>Submit</button>
 		</form>
-
 	)
 }
 
