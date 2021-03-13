@@ -13,6 +13,7 @@ const EditForm = props => {
 	}
 
 	const handleSubmit = e => {
+		// console.log(book)
 		e.preventDefault()
 		if(book.judul && book.penulis && book.genre && book.penerbit) props.updateBook(book)
 	}
@@ -38,7 +39,10 @@ const EditForm = props => {
 		    <input type="text" className="form-control" id="penerbit" value={book.penerbit} name="penerbit" onChange={handleChange}/>
 		  </div>
 		
-		  <button type="submit" className="btn btn-primary" onClick={() => props.setEditing(false)}>Submit</button>
+
+		  <button type="submit" className="btn btn-success mr-3" onClick={handleSubmit}>submit</button>
+
+		  <button type="submit" className="btn btn-warning" onClick={() => props.setEditing(false)}>cancel</button>
 		</form>
 	)
 }

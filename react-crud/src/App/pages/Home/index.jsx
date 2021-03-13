@@ -1,29 +1,36 @@
 import React, {useState, useEffect} from 'react'
 import {GetBook, StoreBook, UpdateBook, DeleteBook} from '../../services'
-import {ListBook, AddForm, EditForm} from '../../components'
+import {ListBook, Modals, AddForm, EditForm} from '../../components'
 
 
 const Home = props => {
-
 	const [books, setBooks] = useState([])
+
+	const [details, setDetails] = useState(false)
+	
+	const initialBook = { id: null, judul: "", penulis: "", genre: "", penerbit: ""}
 
 	const [editing, setEditing] = useState(false)
 
-	const initialBook = { id: null, judul: "", penulis: "", genre: "", penerbit: ""}
-
 	const [currentBook, setCurrentBook] = useState(initialBook)
-
+	
 	useEffect(() => {
 		GetBook()
-		.then(items => {
-			setBooks(items.data)
-		})
-	}, [])
+		.then(items => setBooks(items.data))
+	}, [books])
+
 
 	const addBook = (book) => {
 		setBooks([...books, book])
-		StoreBook(book.judul, book.penulis, book.genre, book.penerbit)
+		StoreBook(book)
 	}
+
+	const detailBook = (id, book) => {
+		// console.log(id)
+		setDetails(true)
+		setCurrentBook(book)
+	}
+
 
 	const editBook = (id, book) => {
 		setEditing(true)
@@ -37,6 +44,7 @@ const Home = props => {
 
 		setCurrentBook(initialBook)
 		setEditing(false)
+		UpdateBook(newBook)
 	}
 	
 	const deleteBook = (id) => {
@@ -79,8 +87,14 @@ const Home = props => {
 
 				<div className="col-md-8">
 					<h2>Lists Book</h2>
-					<ListBook books={books} editBook={editBook} deleteBook={deleteBook}/>
+					<ListBook books={books} detailBook={detailBook} editBook={editBook} deleteBook={deleteBook}/>
 				</div>
+
+				{details ? (
+					<Modals action="detail" details={details} currentBook={currentBook} />
+				) : (
+					''
+				)}
 
 			</div>
 		</div>

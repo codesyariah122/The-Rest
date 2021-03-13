@@ -2,9 +2,12 @@ import React, {Fragment} from 'react'
 
 const ListBook = props => {
 	const lists = props.books
+	
+
 	return (
 		<div className="card">
 		  <ul className="list-group list-group-flush">
+
 		  {lists.map(list => (
 		  	<Fragment>
 		    	<li className="list-group-item">
@@ -14,7 +17,7 @@ const ListBook = props => {
 					    </div>
 
 					    <div className="col px-md-5">
-					 	<a href="">
+					 	<a href="#" onClick={() => props.detailBook(list.id, list)} data-toggle="modal" data-target="#modalData">
 					 		<span class="badge badge-pill badge-primary">Detail
 					 		</span>
 					 	</a>
@@ -32,9 +35,10 @@ const ListBook = props => {
 
 					</div>	
 		    	</li>
+		    
 		    </Fragment>
 		  ))}
-
+	
 		  </ul>
 		</div>
 	)

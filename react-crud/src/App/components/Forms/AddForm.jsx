@@ -12,6 +12,10 @@ const AddForm = props => {
 
 	const [book, setBook] = useState(initBook)
 
+	const clearState = () => {
+		setBook({...initBook})
+	}
+
 	const handleChange = e => {
 		const {name, value} = e.target
 		setBook({...book, [name]: value}, [])
@@ -19,9 +23,11 @@ const AddForm = props => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		if(book.judul && book.penulis && book.genre && book.penerbit) {
-			handleChange(e, props.addBook(book))
-		}
+		if(book){
+			props.addBook(book)
+			clearState()
+			// handleChange(e, props.addBook(book))
+		} 
 	}
 
 	return (
