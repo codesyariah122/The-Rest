@@ -17,7 +17,7 @@ const Home = props => {
 	useEffect(() => {
 		GetBook()
 		.then(items => setBooks(items.data))
-	}, [books])
+	}, [])
 
 
 	const addBook = (book) => {
