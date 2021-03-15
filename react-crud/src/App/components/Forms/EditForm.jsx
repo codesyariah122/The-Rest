@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
 
 const EditForm = props => {
 	useEffect(() => {
 		setBook(props.currentBook)
-	}, [props])
-
+	}, [])
 	const [book, setBook] = useState(props.currentBook)
 
 	const handleChange = e => {
@@ -18,6 +17,8 @@ const EditForm = props => {
 		if(book.judul && book.penulis && book.genre && book.penerbit) props.updateBook(book)
 	}
 	return (
+		<Fragment>
+			<h4 className="text-info">{props.title}</h4>
 		<form>
 		  <div className="form-group">
 		    <label for="judul">Judul</label>
@@ -44,6 +45,7 @@ const EditForm = props => {
 
 		  <button type="submit" className="btn btn-warning" onClick={() => props.setEditing(false)}>cancel</button>
 		</form>
+		</Fragment>
 	)
 }
 

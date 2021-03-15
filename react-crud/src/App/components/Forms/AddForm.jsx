@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {Fragment, useState} from 'react'
 
 const AddForm = props => {
 
@@ -11,6 +11,7 @@ const AddForm = props => {
 	}
 
 	const [book, setBook] = useState(initBook)
+	const [error, setError] = useState(false)
 
 	const clearState = () => {
 		setBook({...initBook})
@@ -23,37 +24,54 @@ const AddForm = props => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		if(book){
-			props.addBook(book)
+		// console.log(book)
+		if(book.judul == ''){
+			setError(true)
+		}else{
+			setError(false)
 			clearState()
-			// handleChange(e, props.addBook(book))
+			props.addBook(book)
+			// free -hhandleChange(e, props.addBook(book))
 		} 
 	}
 
 	return (
-		<form>
-		  <div className="form-group">
-		    <label for="judul">Judul</label>
-		    <input type="text" className="form-control" id="judul" value={book.judul} name="judul" onChange={handleChange}/>
-		  </div>
+		<Fragment>
+			<h4 className="text-success">{props.title}</h4>
+			{error ? (
+				<div className="alert alert-warning alert-dismissible fade show" role="alert">
+				  <strong>Ooops!</strong> Terjadi error/Harap isi form input buku dengan benar.
+				  <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			) : (
+				''
+			)}
+			<form>
+			  <div className="form-group">
+			    <label for="judul">Judul</label>
+			    <input type="text" className="form-control" id="judul" value={book.judul} name="judul" onChange={handleChange}/>
+			  </div>
 
-		  <div className="form-group">
-		    <label for="penulis">Penulis</label>
-		    <input type="text" className="form-control" id="penulis" value={book.penulis} name="penulis" onChange={handleChange}/>
-		  </div>
+			  <div className="form-group">
+			    <label for="penulis">Penulis</label>
+			    <input type="text" className="form-control" id="penulis" value={book.penulis} name="penulis" onChange={handleChange}/>
+			  </div>
 
-		  <div className="form-group">
-		    <label for="genre">Genre</label>
-		    <input type="text" className="form-control" id="genre" value={book.genre} name="genre" onChange={handleChange}/>
-		  </div>
+			  <div className="form-group">
+			    <label for="genre">Genre</label>
+			    <input type="text" className="form-control" id="genre" value={book.genre} name="genre" onChange={handleChange}/>
+			  </div>
 
-		  <div className="form-group">
-		    <label for="penerbit">Penerbit</label>
-		    <input type="text" className="form-control" id="penerbit" value={book.penerbit} name="penerbit" onChange={handleChange}/>
-		  </div>
-		
-		  <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
-		</form>
+			  <div className="form-group">
+			    <label for="penerbit">Penerbit</label>
+			    <input type="text" className="form-control" id="penerbit" value={book.penerbit} name="penerbit" onChange={handleChange}/>
+			  </div>
+			
+			  <button type="submit" className="btn btn-primary mt-3" onClick={handleSubmit}>Submit</button>
+			</form>
+		</Fragment>
 	)
 }
 

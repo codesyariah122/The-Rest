@@ -60,7 +60,7 @@ const Home = props => {
 
 			<div className="row justify-content-center">
 				<div class="col-12 mt-3 mb-5">
-					<h1 className="text-center">{props.header}</h1>
+					<h1 className="text-center text-info">{props.header}</h1>
 					<hr/>
 				</div>
 			</div>
@@ -69,25 +69,19 @@ const Home = props => {
 
 				<div className="col-md-3">
 				{editing ? (
-					<>
-					<h2>Edit Book</h2>
 					<EditForm 
 						currentBook={currentBook}
 						setEditing={setEditing}
 						updateBook={updateBook}
+						title="Edit Book"
 					/>
-					</>
 				) : (
-					<>
-					<h2>Add Book</h2>
-					<AddForm addBook={addBook}/>
-					</>
+					<AddForm addBook={addBook} title="Add New Book"/>
 				)}
 				</div>
 
 				<div className="col-md-8">
-					<h2>Lists Book</h2>
-					<ListBook books={books} detailBook={detailBook} editBook={editBook} deleteBook={deleteBook}/>
+					<ListBook title="List Book" books={books} detailBook={detailBook} editBook={editBook} deleteBook={deleteBook}/>
 				</div>
 
 				{details ? (
